@@ -36,7 +36,7 @@ static const int PROTOCOL_VERSION = 60020;
 static const int INIT_PROTO_VERSION = 209;
 
 // disconnect from peers older than this proto version
-static const int MIN_PEER_PROTO_VERSION = 209;
+static const int MIN_PEER_PROTO_VERSION = 60020;
 
 static const int MIN_INSTANTX_PROTO_VERSION = 60020;
 
