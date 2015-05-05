@@ -195,6 +195,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelBlocksIcon);
     frameBlocksLayout->addStretch();
+    frameBlocksLayout->addWidget(netLabel);
     toolbar->addWidget(frameBlocks);
 
     if (GetBoolArg("-staking", true))
@@ -448,12 +449,12 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
 	toolbar->addAction(masternodeManagerAction);
-    //netLabel = new QLabel();
+    netLabel = new QLabel();
 
 
     toolbar->addWidget(makeToolBarSpacer());
-    //netLabel->setObjectName("netLabel");
-    //netLabel->setStyleSheet("#netLabel { color: #efefef; }");
+    netLabel->setObjectName("netLabel");
+    netLabel->setStyleSheet("#netLabel { color: #efefef; }");
     //toolbar->addWidget(netLabel);
 
     toolbar->setOrientation(Qt::Vertical);
@@ -474,19 +475,19 @@ void BitcoinGUI::createToolBars()
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
 {
-   // if(!fOnlyTor)
-   // netLabel->setText("CLEARNET");
-   // else
-   // {
-   // if(!IsLimited(NET_TOR))
-   // {
-   //     netLabel->setMinimumSize(48, 48);
-   //         netLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-   //         netLabel->setPixmap(QPixmap(":/icons/onion"));
-   //         netLabel->setMaximumSize(48,48);
-   //         netLabel->setScaledContents(true);
-   // }
-   // }
+    if(!fOnlyTor)
+    netLabel->setText("CLEARNET");
+    else
+    {
+    if(!IsLimited(NET_TOR))
+    {
+        netLabel->setMinimumSize(16, 16);
+            netLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+            netLabel->setPixmap(QPixmap(":/icons/onion"));
+            netLabel->setMaximumSize(16,16);
+            netLabel->setScaledContents(true);
+    }
+    }
 
     this->clientModel = clientModel;
     if(clientModel)
