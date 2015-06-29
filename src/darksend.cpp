@@ -1985,7 +1985,7 @@ bool CDarkSendSigner::IsVinAssociatedWithPubkey(CTxIn& vin, CPubKey& pubkey){
     //if(GetTransaction(vin.prevout.hash, txVin, hash, true)){
     if(GetTransaction(vin.prevout.hash, txVin, hash)){
         BOOST_FOREACH(CTxOut out, txVin.vout){
-            if(out.nValue == 112*COIN){
+            if(out.nValue == 888*COIN){
                 if(out.scriptPubKey == payee2) return true;
             }
         }
