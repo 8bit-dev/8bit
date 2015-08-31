@@ -3109,6 +3109,11 @@ struct CImportingNow
     }
 };
 
+void LogBlockFileImport(const char *mode, const char *filename)
+{
+    LogPrintf("[%s] Loading blockfile from external file %s\n", mode, filename);
+}
+
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
     RenameThread("8bit-loadblk");
@@ -3118,8 +3123,10 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
     // -loadblock=
     BOOST_FOREACH(boost::filesystem::path &path, vImportFiles) {
         FILE *file = fopen(path.string().c_str(), "rb");
-        if (file)
+        if (file) {
+            LogBlockFileImport("-loadblock", path.string().c_str());
             LoadExternalBlockFile(file);
+        }
     }
 
     // hardcoded $DATADIR/bootstrap.dat
@@ -3128,6 +3135,7 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
         FILE *file = fopen(pathBootstrap.string().c_str(), "rb");
         if (file) {
             filesystem::path pathBootstrapOld = GetDataDir() / "bootstrap.dat.old";
+            LogBlockFileImport("bootstrap.dat", pathBootstrap.string().c_str());
             LoadExternalBlockFile(file);
             RenameOver(pathBootstrap, pathBootstrapOld);
         }
